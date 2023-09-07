@@ -19,8 +19,10 @@ function App() {
     if (questions.value !== "") {
       if (answers.value !== "") {
         setPage("questions")
-        setQuestionCount(Array(Number(questions.value)).fill("*"))
-        setAnswersCount(Array(Number(answers.value)).fill("*"))
+        setQuestionCount(Array(Number(questions.value)).fill({isCompleted:false}))
+        setAnswersCount(
+          Array(Number(answers.value)).fill({ isCompleted: false })
+        )
       } else {
         answers.value === "" && setErrorAnswers(true)
       }

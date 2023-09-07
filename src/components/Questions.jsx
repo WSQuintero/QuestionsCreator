@@ -1,16 +1,24 @@
 import { useState } from "react"
 
 function Questions({ page, questionCount, answersCount }) {
-  const [finalAnswers, setFinalAnswers] = useState([])
+  const [finalData, setFInalData] = useState([])
   const handleSubmitQuestions = (event) => {
     event.preventDefault()
+    const finalAnswers = []
     const element = event.target.elements
-    answersCount.forEach((elemen, index) => {
-      setFinalAnswers([...finalAnswers, element["input" + (index + 1)].value])
-    })
+    const nameAnswer = element.nameQuestion.value
+
+    for (let i = 0; i < answersCount.length; i++) {
+      finalAnswers.push({
+        nameAnswer: nameAnswer,
+        answers: element["input" + (i + 1)].value,
+      })
+    }
+    setFInalData([...finalData, finalAnswers])
   }
 
-  console.log(finalAnswers)
+  console.log(finalData)
+
   return (
     <>
       {page === "questions" &&
@@ -25,6 +33,7 @@ function Questions({ page, questionCount, answersCount }) {
               <input
                 placeholder={`Agrega tu pregunta ${ind + 1}`}
                 className='border w-full border-blue-600 text-center placeholder:text-blue-300'
+                name='nameQuestion'
               ></input>
             </div>
             {answersCount.map((number, index) => (
