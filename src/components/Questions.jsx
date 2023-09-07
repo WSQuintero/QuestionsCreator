@@ -1,20 +1,29 @@
 import { useState } from "react"
 
-function Questions({ page, questionCount, answersCount }) {
-  const [finalData, setFInalData] = useState([])
+function Questions({ page, questionCount, answersCount, setQuestionCount }) {
+  const [finalData, setFinalData] = useState([])
+
   const handleSubmitQuestions = (event) => {
     event.preventDefault()
     const finalAnswers = []
     const element = event.target.elements
     const nameAnswer = element.nameQuestion.value
+    const numberQuestion = element.nameQuestion.dataset.number
 
+    console.log(numberQuestion)
     for (let i = 0; i < answersCount.length; i++) {
       finalAnswers.push({
         nameAnswer: nameAnswer,
         answers: element["input" + (i + 1)].value,
+        numberQuestion: numberQuestion,
       })
+      element["input" + (i + 1)].value = ""
     }
-    setFInalData([...finalData, finalAnswers])
+    element.nameQuestion.value = ""
+    setFinalData([...finalData, finalAnswers.reduce((a, b) => a.concat(b), [])])
+    setQuestionCount(
+      questionCount.filter((a, index) => index !== Number(numberQuestion))
+    )
   }
 
   console.log(finalData)
@@ -24,7 +33,6 @@ function Questions({ page, questionCount, answersCount }) {
       {page === "questions" &&
         questionCount.map((number, ind) => (
           <form
-            action=''
             key={ind}
             className='flex flex-col justify-center items-center border border-blue-300 rounded-xl p-5 gap-2'
             onSubmit={handleSubmitQuestions}
@@ -34,6 +42,7 @@ function Questions({ page, questionCount, answersCount }) {
                 placeholder={`Agrega tu pregunta ${ind + 1}`}
                 className='border w-full border-blue-600 text-center placeholder:text-blue-300'
                 name='nameQuestion'
+                data-number={ind}
               ></input>
             </div>
             {answersCount.map((number, index) => (
@@ -54,6 +63,18 @@ function Questions({ page, questionCount, answersCount }) {
             </button>
           </form>
         ))}
+
+      {finalData.map((element, index) => (
+        <article key={element[0].nameAnswer + index}>
+          <strong>{element[0].nameAnswer}</strong>
+          <ul>
+            {element.map((answer) => (
+              <li key={answer.answers}>{answer.answers}</li>
+            ))}
+          </ul>
+          <span>Creada</span>
+        </article>
+      ))}
     </>
   )
 }

@@ -44,6 +44,7 @@ function App() {
         questionCount={questionCount}
         answersCount={answersCount}
         page={page}
+        setQuestionCount={setQuestionCount}
       />
     </main>
   )
