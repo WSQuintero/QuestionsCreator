@@ -1,8 +1,16 @@
+import { useState } from "react"
+
 function Questions({ page, questionCount, answersCount }) {
+  const [finalAnswers, setFinalAnswers] = useState([])
   const handleSubmitQuestions = (event) => {
+    event.preventDefault()
     const element = event.target.elements
+    answersCount.forEach((elemen, index) => {
+      setFinalAnswers([...finalAnswers, element["input" + (index + 1)].value])
+    })
   }
 
+  console.log(finalAnswers)
   return (
     <>
       {page === "questions" &&
@@ -28,14 +36,15 @@ function Questions({ page, questionCount, answersCount }) {
                   type='text'
                   placeholder={`posible respuesta ${index + 1}`}
                   className='border border-blue-200 px-2'
+                  name={`input${index + 1}`}
                 />
               </div>
             ))}
+            <button className='bg-blue-600 w-full hover:bg-blue-400 text-white p-1 rounded-md ml-2'>
+              crear
+            </button>
           </form>
         ))}
-      <button className='bg-blue-600 hover:bg-blue-400 text-white p-1 rounded-md ml-2'>
-        crear
-      </button>
     </>
   )
 }
