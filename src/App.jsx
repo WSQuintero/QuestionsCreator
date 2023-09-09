@@ -11,6 +11,7 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault()
+    
     const questions = event.target.elements.questions
     const answers = event.target.elements.answers
     setErrorQuestions(false)
@@ -19,10 +20,20 @@ function App() {
     if (questions.value !== "") {
       if (answers.value !== "") {
         setPage("questions")
-        setQuestionCount(Array(Number(questions.value)).fill({isCompleted:false}))
-        setAnswersCount(
-          Array(Number(answers.value)).fill({ isCompleted: false })
+        setQuestionCount(
+          Array(Number(questions.value))
+            .fill({})
+            .map((a, index) => {
+              return (a = { position: index })
+            })
         )
+        setAnswersCount(
+          Array(Number(answers.value)).fill(
+            {}).map((a, index) => {
+              return (a = { position: index })
+            })
+          )
+        
       } else {
         answers.value === "" && setErrorAnswers(true)
       }
