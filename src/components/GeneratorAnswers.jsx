@@ -47,7 +47,7 @@ function GeneratorAnswers({
     event.preventDefault()
     const finalAnswers = []
 
-    if (correctAnswers.length !== answersCount.length) {
+    if (correctAnswers.length !== questionCount.length) {
       setError("Por favor selecciona la respuesta correcta para cada pregunta")
       setTimeout(() => {
         setError("")
