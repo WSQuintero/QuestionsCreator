@@ -1,37 +1,35 @@
-import { useEffect, useRef, useState } from "react"
-import { GeneratedAnswers } from "./GeneratedAnswers"
+import { useState } from "react"
 import { GeneratorAnswers } from "./GeneratorAnswers"
 import ButtonsSend from "./ButtonsSend"
+import { GeneratedAnswers } from "./GeneratedAnswers"
 
-function Questions({
-  setPage,
-  page,
-  questionCount,
-  answersCount,
-  setQuestionCount,
-}) {
+function Questions({ setPage, page, questionCount, answersCount }) {
   const [correctAnswers, setCorrectAnswers] = useState([])
-  
-  
-
+  const [answers, setAnswers] = useState([])
+  const [generatedAnswers, setGeneratedAnswers] = useState(false)
   return (
     <>
       {page === "questions" && (
         <div className='flex gap-10 flex-col items-center justify-center'>
-          <GeneratorAnswers
-            questionCount={questionCount}
-            answersCount={answersCount}
-            correctAnswers={correctAnswers}
+          {!generatedAnswers ? (
+            <GeneratorAnswers
+              questionCount={questionCount}
+              answersCount={answersCount}
+              correctAnswers={correctAnswers}
+              setCorrectAnswers={setCorrectAnswers}
+              setAnswers={setAnswers}
+              answers={answers}
+              setGeneratedAnswers={setGeneratedAnswers}
+            />
+          ) : (
+            <GeneratedAnswers answers={answers} />
+          )}
+          <ButtonsSend
+            setPage={setPage}
             setCorrectAnswers={setCorrectAnswers}
           />
-          {/* <ButtonsSend
-            setPage={setPage}
-            setFinalData={setFinalData}
-            setCorrectAnswers={setCorrectAnswers}
-          /> */}
         </div>
       )}
-    
     </>
   )
 }

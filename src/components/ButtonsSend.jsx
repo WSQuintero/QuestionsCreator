@@ -1,5 +1,5 @@
 
-function ButtonsSend({ setPage, setFinalData, setCorrectAnswers }) {
+function ButtonsSend({ setPage, setCorrectAnswers }) {
   return (
     <div>
       <button
@@ -11,8 +11,7 @@ function ButtonsSend({ setPage, setFinalData, setCorrectAnswers }) {
       <button
         onClick={() => {
           setPage("form")
-          setFinalData([])
-          setCorrectAnswers
+          setCorrectAnswers([])
         }}
         className='w-[200px] bg-red-600 rounded-3xl text-white hover:bg-red-200 hover:text-red-700'
       >

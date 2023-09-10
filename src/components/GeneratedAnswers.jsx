@@ -1,28 +1,30 @@
 
-function GeneratedAnswers({ finalData }) {
+function GeneratedAnswers({ answers }) {
+  console.log(answers)
+
   return (
     <div>
-      {finalData.map((element, index) => (
+      {answers.map((element, index) => (
         <article
-          key={element[0].nameAnswer + index}
+          key={element.question + index}
           className='border border-blue-400 min-w-[350px] w-50% max-w-[600px] h-[auto] p-10 flex flex-col gap-3 items-center'
         >
           <strong className='w-full bg-blue-600 flex justify-start text-center h-10 items-center text-xl text-blue-100 rounded-2xl p-10'>
             <span className='w-[20px] border border-blue-300 m-2 p-1 rounded-full'>
               {index + 1}
             </span>
-            {element[0].nameAnswer}
+            {element.question}
           </strong>
           <ul className='w-full flex flex-col gap-5'>
-            {element.map((answer, index) => (
+            {element.answers.map((answer, index) => (
               <li
-                key={answer.answers + index}
+                key={answer + index}
                 className='border w-full border-blue-200 p-2 text-blue-600 '
               >
                 <span className='w-[20px] border border-blue-300 m-5 p-2'>
                   {index + 1}
                 </span>
-                {answer.answers}
+                {answer}
               </li>
             ))}
           </ul>
