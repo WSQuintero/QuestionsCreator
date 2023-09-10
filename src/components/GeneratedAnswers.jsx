@@ -1,7 +1,6 @@
 
-function GeneratedAnswers({ answers }) {
-  console.log(answers)
-
+function GeneratedAnswers({ answers, correctAnswers }) {
+  console.log(correctAnswers)
   return (
     <div>
       {answers.map((element, index) => (

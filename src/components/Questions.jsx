@@ -7,6 +7,7 @@ function Questions({ setPage, page, questionCount, answersCount }) {
   const [correctAnswers, setCorrectAnswers] = useState([])
   const [answers, setAnswers] = useState([])
   const [generatedAnswers, setGeneratedAnswers] = useState(false)
+
   return (
     <>
       {page === "questions" && (
@@ -22,11 +23,16 @@ function Questions({ setPage, page, questionCount, answersCount }) {
               setGeneratedAnswers={setGeneratedAnswers}
             />
           ) : (
-            <GeneratedAnswers answers={answers} />
+            <GeneratedAnswers
+              answers={answers}
+              correctAnswers={correctAnswers}
+            />
           )}
           <ButtonsSend
             setPage={setPage}
             setCorrectAnswers={setCorrectAnswers}
+            setGeneratedAnswers={setGeneratedAnswers}
+            setAnswers={setAnswers}
           />
         </div>
       )}

@@ -1,7 +1,12 @@
 
-function ButtonsSend({ setPage, setCorrectAnswers }) {
+function ButtonsSend({
+  setPage,
+  setCorrectAnswers,
+  setGeneratedAnswers,
+  setAnswers,
+}) {
   return (
-    <div>
+    <div className="flex flex-col sm:flex-row">
       <button
         onClick={() => {}}
         className='w-[200px] bg-green-600 rounded-3xl text-white hover:bg-green-200 hover:text-green-700'
@@ -12,6 +17,8 @@ function ButtonsSend({ setPage, setCorrectAnswers }) {
         onClick={() => {
           setPage("form")
           setCorrectAnswers([])
+          setGeneratedAnswers(false)
+          setAnswers([])
         }}
         className='w-[200px] bg-red-600 rounded-3xl text-white hover:bg-red-200 hover:text-red-700'
       >
