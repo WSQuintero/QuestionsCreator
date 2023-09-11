@@ -1,6 +1,12 @@
 import { ErrorInput } from "./ErrorInput"
 
-function Form({ handleSubmit, page,  errorQuestions, errorAnswers }) {
+function Form({
+  handleSubmit,
+  page,
+  errorQuestions,
+  errorAnswers,
+
+}) {
   return (
     <>
       {page === "form" && (
