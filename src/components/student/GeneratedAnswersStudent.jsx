@@ -4,14 +4,18 @@ import { useReadDataInDb } from "../../customHooks/useReadDataInDb"
 function GeneratedAnswersStudent() {
   const { data, error, readDataInDb } = useReadDataInDb()
   const inputQuestionarieCode = useRef(null)
-  console.log(data || error)
+
+
+  const handleSubmitQuestionarieCode = (event) => {
+    event.preventDefault()
+    readDataInDb(inputQuestionarieCode.current.value)
+  }
+
+    console.log(data || error)
   return (
     <div className='flex  flex-col items-center justify-center'>
       <form
-        onSubmit={(event) => {
-          event.preventDefault()
-          readDataInDb(inputQuestionarieCode.current.value)
-        }}
+        onSubmit={handleSubmitQuestionarieCode}
         className='flex flex-col justify-center items-center'
       >
         <div className='flex flex-col justify-center items-center'>
