@@ -8,7 +8,7 @@ function ButtonsSend({
   confirmMessage,
 }) {
   return (
-    <div className='flex flex-col sm:flex-row'>
+    <div className='flex flex-col sm:flex-row justify-center items-center'>
       {confirmMessage === "" ||confirmMessage===undefined && (
         <button
           onClick={addUser}

@@ -1,8 +1,8 @@
 import { useState } from "react"
+import { addUserInDb } from "../../logic/addUserInDb"
 import { GeneratorAnswers } from "./GeneratorAnswers"
 import { GeneratedAnswers } from "./GeneratedAnswers"
 import { ButtonsSend } from "./ButtonsSend"
-import { addUserInDb } from "../logic/addUserInDb"
 
 function Questions({
   setPage,
@@ -54,8 +54,11 @@ function Questions({
             />
           </div>
         ) : (
-          <div>
-            <p>{confirmMessage}</p>
+          <div className='w-full flex flex-col justify-center items-center'>
+            <p className='text-center font-semibold p-5 text-3xl'>
+              Tú código de questionario es:{" "}
+              <span className='text-green-600'>{confirmMessage}</span>
+            </p>
             <ButtonsSend
               setPage={setPage}
               setCorrectAnswers={setCorrectAnswers}

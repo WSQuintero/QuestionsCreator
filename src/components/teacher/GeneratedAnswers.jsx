@@ -1,5 +1,5 @@
 
-function GeneratedAnswers({ answers, correctAnswers }) {
+function GeneratedAnswers({ answers }) {
   return (
     <div>
       {answers.map((element, index) => (

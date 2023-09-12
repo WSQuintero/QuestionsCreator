@@ -11,10 +11,10 @@ function Form({
     <>
       {page === "form" && (
         <form
-          className='flex flex-col w-2/4 items-center gap-3 border border-gray-300 p-20'
+          className='flex flex-col w-2/4 items-center gap-3 border-4 border-blue-300 p-20 text-blue-500 font-medium text-2xl' 
           onSubmit={handleSubmit}
         >
-          <label htmlFor='questions' className='font-bold'>
+          <label htmlFor='questions' className='text-green-600'>
             ¿Cuantas preguntas tiene el cuestionario?
           </label>
           <input
@@ -26,7 +26,7 @@ function Form({
             }`}
             defaultValue=''
           />
-          <label htmlFor='answers' className='font-bold'>
+          <label htmlFor='answers' className='text-red-600'>
             ¿cuantas respuestas son por pregunta
           </label>
           <input

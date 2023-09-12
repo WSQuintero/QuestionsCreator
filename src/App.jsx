@@ -1,6 +1,8 @@
 import { useState } from "react"
-import { Form } from "./components/Form"
-import { Questions } from "./components/Questions"
+import { Form } from "./components/teacher/Form"
+import { Questions } from "./components/teacher/Questions"
+import { GeneratedAnswersStudent } from "./components/student/GeneratedAnswersStudent"
+
 
 function App() {
   const [page, setPage] = useState("form")
@@ -64,6 +66,7 @@ function App() {
         confirmMessage={confirmMessage}
         setConfirmMessage={setConfirmMessage}
       />
+      <GeneratedAnswersStudent/>
     </main>
   )
 }
