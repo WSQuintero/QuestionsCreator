@@ -6,4 +6,4 @@ function HomeStudent() {
   )
 }
 
-export default HomeStudent
+export  {HomeStudent}

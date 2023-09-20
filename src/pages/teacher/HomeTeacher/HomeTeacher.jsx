@@ -45,7 +45,7 @@ function HomeTeacher() {
     }
   }
   return (
-    <div >
+    <>
       <FormTeacher
         handleSubmit={handleSubmit}
         page={page}
@@ -63,7 +63,7 @@ function HomeTeacher() {
         confirmMessage={confirmMessage}
         setConfirmMessage={setConfirmMessage}
       />
-    </div>
+    </>
   )
 }
 

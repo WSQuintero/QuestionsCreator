@@ -1,13 +1,18 @@
-import { useEffect, useRef, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import { useReadDataInDb } from "../../customHooks/useReadDataInDb"
+import { Context } from "../../context/ContextProvider"
+import { useNavigate } from "react-router"
 
 function GeneratedAnswersStudent() {
-  const { data, error, readDataInDb } = useReadDataInDb()
+  const { data, error, readDataInDb } = useReadDataInDb("questonaries")
   const [errorInReadData, setErrorInReadData] = useState("")
   const [exist, setExist] = useState(false)
   const inputQuestionarieCode = useRef(null)
-
-  const handleSubmitQuestionarieCode = async (event) => {
+  const finalAnswer = useRef()
+  const { setUserAnswers, setCorrectAnswers, setTotalAnswers } =
+    useContext(Context)
+  const navigate = useNavigate()
+  const handleSubmitQuestionarieCode = (event) => {
     event.preventDefault()
     readDataInDb(inputQuestionarieCode.current.value)
   }
@@ -19,6 +24,29 @@ function GeneratedAnswersStudent() {
     }
   }, [data, error])
 
+  const handleSubmitFinalAnswers = (event) => {
+    const finalAnswers = []
+    event.preventDefault()
+
+    data?.docData?.answers?.forEach((container, index) => {
+      const inputs = event.target[`selectedAnswer${index}`]
+      const arrayInputs = Array(...inputs)
+
+      const answerUser = arrayInputs.find((inputAnswer) => inputAnswer.checked)
+      const answer = answerUser.dataset.answer
+      finalAnswers.push({
+        question: index,
+        answer: answer[answer.length - 1],
+        correctAnswer: data?.docData?.correctAnswers.sort(
+          (a, b) => a.numberQuestion - b.numberQuestion
+        )[index],
+      })
+    })
+    setUserAnswers(finalAnswers)
+    setCorrectAnswers(data?.docData?.correctAnswers)
+    setTotalAnswers(data?.docData?.answers)
+    navigate("/results")
+  }
   return (
     <>
       {!exist ? (
@@ -43,7 +71,7 @@ function GeneratedAnswersStudent() {
           </form>
         </div>
       ) : (
-        <div>
+        <form onSubmit={handleSubmitFinalAnswers}>
           {data?.docData?.answers?.map((element, index) => (
             <article
               key={element.question + index}
@@ -56,24 +84,31 @@ function GeneratedAnswersStudent() {
                 {element.question}
               </strong>
               <ul className='w-full flex flex-col gap-5'>
-                {element.answers.map((answer, index) => (
+                {element.answers.map((answer, ind) => (
                   <li
-                    key={answer + index}
+                    key={answer + ind}
                     className='border w-full border-blue-200 p-2 text-blue-600 '
                   >
                     <span className='w-[20px] border border-blue-300 m-5 p-2'>
-                      {index + 1}
+                      {ind + 1}
                     </span>
-                    {answer}
+                    <label htmlFor=''>{answer}</label>
+                    <input
+                      type='radio'
+                      name={`selectedAnswer${index}`}
+                      data-answer={`answer-${ind}`}
+                      ref={finalAnswer}
+                      data-text={answer}
+                    />
                   </li>
                 ))}
               </ul>
-              <span className='w-2/4 bg-green-100 flex justify-center items-center h-10 rounded-2xl text-green-900'>
-                Creada
-              </span>
             </article>
           ))}
-        </div>
+          <button className='border border-gray-500 p-4 w-[200px] rounded-xl hover:bg-green-400 hover:text-white font-bold text-2xl'>
+            Enviar
+          </button>
+        </form>
       )}
       {errorInReadData && (
         <p className='text-3xl text-red-600'>{errorInReadData}</p>

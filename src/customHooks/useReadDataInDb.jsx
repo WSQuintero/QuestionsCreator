@@ -2,13 +2,13 @@ import { useState } from "react"
 import { doc, getDoc } from "firebase/firestore"
 import { db } from "../firebase/firebase"
 
-function useReadDataInDb() {
+function useReadDataInDb(collecction) {
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
 
   const readDataInDb = async (documentId) => {
     try {
-      const docRef = doc(db, "questonaries", documentId) // Reemplaza 'questonaries' por el nombre de tu colección
+      const docRef = doc(db, collecction, documentId) // Reemplaza 'questonaries' por el nombre de tu colección
       const docSnapshot = await getDoc(docRef)
 
       if (docSnapshot.exists()) {

@@ -18,7 +18,10 @@ function Questions({
 
   const addUser = async (event) => {
     event.stopPropagation()
-    const result = await addUserInDb({ answers, correctAnswers })
+    const result = await addUserInDb(
+      { answers, correctAnswers },
+      "questonaries"
+    )
     setConfirmMessage(result)
     setCorrectAnswers([])
     setAnswers([])
