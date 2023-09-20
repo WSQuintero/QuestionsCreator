@@ -1,6 +1,12 @@
 import { ErrorInput } from "./ErrorInput"
 
-function FormTeacher({ handleSubmit, page, errorQuestions, errorAnswers }) {
+function FormTeacher({
+  handleSubmit,
+  page,
+  errorQuestions,
+  errorAnswers,
+  setOptionSelected,
+}) {
   return (
     <>
       {page === "form" && (
@@ -41,6 +47,7 @@ function FormTeacher({ handleSubmit, page, errorQuestions, errorAnswers }) {
           />
         </form>
       )}
+      <button onClick={() => setOptionSelected("")}>Volver</button>
     </>
   )
 }

@@ -6,9 +6,9 @@ function ContextProvider({ children }) {
   const [userAnswers, setUserAnswers] = useState([])
   const [totalAnswers, setTotalAnswers] = useState([])
   const [correctAnswers, setCorrectAnswers] = useState([])
-  const actualUser = JSON.parse(sessionStorage.getItem("actualUser"))
+  const actualUser = JSON.parse(sessionStorage.getItem("actualUser"))||[]
   const findedTypeUser =
-    actualUser?._document.data.value.mapValue.fields.typeUser.stringValue || ""
+    actualUser?._document?.data?.value.mapValue.fields.typeUser.stringValue || ""
   const [isLoged, setIsLoged] = useState({
     isLogedUser: actualUser?.isLoged || false,
     logedUser: null,

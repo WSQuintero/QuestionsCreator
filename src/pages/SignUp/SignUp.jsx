@@ -24,6 +24,7 @@ function SignUp() {
         : inputTypeUser[1].checked
         ? "student"
         : false,
+      userSchool: event.target.school.value.toLowerCase(),
     }
     setUser(newUser)
 
@@ -117,6 +118,14 @@ function SignUp() {
             type='password'
             id='repeatPassword'
             name='repeatPassword'
+            className='border border-gray-400'
+            required
+          />
+          <label htmlFor='repeatPassword'>Institución</label>
+          <input
+            type='text'
+            id='school'
+            name='school'
             className='border border-gray-400'
             required
           />

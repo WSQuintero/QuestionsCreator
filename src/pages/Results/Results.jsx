@@ -1,8 +1,8 @@
-import { useContext,  useRef } from "react"
+import { useContext, useRef } from "react"
 import { Context } from "../../context/ContextProvider"
 
 function Results() {
-  const { userAnswers,  totalAnswers } = useContext(Context)
+  const { userAnswers, totalAnswers } = useContext(Context)
   const resultAnswer = useRef(null)
   const userName = JSON.parse(sessionStorage.getItem("actualUser"))._document
     .data.value.mapValue.fields.userName.stringValue
@@ -15,8 +15,13 @@ function Results() {
 
 
   return (
-    <div ref={resultAnswer} className="h-full flex flex-col justify-between items-center p-10 gap-5"> 
-      <h2 className="font-bold text-3xl text-blue-500">{userName} tus respuestas fueron</h2>
+    <div
+      ref={resultAnswer}
+      className='h-full flex flex-col justify-between items-center p-10 gap-5'
+    >
+      <h2 className='font-bold text-3xl text-blue-500'>
+        {userName} tus respuestas fueron
+      </h2>
       {totalAnswers.map((element, index) => (
         <article
           key={element.question + index}

@@ -66,6 +66,7 @@ function HomeTeacher() {
             errorAnswers={errorAnswers}
             confirmMessage={confirmMessage}
             setConfirmMessage={setConfirmMessage}
+            setOptionSelected={setOptionSelected}
           />
           <Questions
             questionCount={questionCount}
@@ -78,8 +79,9 @@ function HomeTeacher() {
           />
         </>
       )}
-      {optionSelected === "checkResultsStudent" &&
-      <CheckResults/>}
+      {optionSelected === "checkResultsStudent" && (
+        <CheckResults setOptionSelected={setOptionSelected} />
+      )}
     </>
   )
 }
