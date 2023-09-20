@@ -1,12 +1,11 @@
-import { useContext, useEffect, useRef } from "react"
+import { useContext,  useRef } from "react"
 import { Context } from "../../context/ContextProvider"
 
 function Results() {
-  const { userAnswers, correctAnswers, totalAnswers } = useContext(Context)
+  const { userAnswers,  totalAnswers } = useContext(Context)
   const resultAnswer = useRef(null)
-  // useEffect(() => {
-  //   console.log(userAnswers)
-  // }, [])
+  const userName = JSON.parse(sessionStorage.getItem("actualUser"))._document
+    .data.value.mapValue.fields.userName.stringValue
   let count = 0
   userAnswers.forEach((answer) => {
     if (Number(answer.answer) === answer.correctAnswer.correctAnswer) {
@@ -14,10 +13,10 @@ function Results() {
     }
   })
 
-  console.log(count)
 
   return (
-    <div ref={resultAnswer}>
+    <div ref={resultAnswer} className="h-full flex flex-col justify-between items-center p-10 gap-5"> 
+      <h2 className="font-bold text-3xl text-blue-500">{userName} tus respuestas fueron</h2>
       {totalAnswers.map((element, index) => (
         <article
           key={element.question + index}
@@ -31,7 +30,6 @@ function Results() {
             {element.question}
           </strong>
           <ul className='w-full flex flex-col gap-5'>
-            {console.log(userAnswers[index])}
             {element.answers.map(
               (answer, ind) =>
                 Number(userAnswers[index].answer) === ind && (
@@ -70,7 +68,7 @@ function Results() {
         </article>
       ))}
       <p className='font-bold text-green-700 text-3xl'>
-        Tuviste {count} {count > 1 ? "respuestas" : "respuesta"} {" "}
+        Tuviste {count} {count > 1 ? "respuestas" : "respuesta"}{" "}
         {count > 1 ? "correctas" : "correcta"} de {userAnswers.length}{" "}
       </p>
     </div>

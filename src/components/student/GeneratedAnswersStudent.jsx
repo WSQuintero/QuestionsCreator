@@ -2,6 +2,7 @@ import { useContext, useEffect, useRef, useState } from "react"
 import { useReadDataInDb } from "../../customHooks/useReadDataInDb"
 import { Context } from "../../context/ContextProvider"
 import { useNavigate } from "react-router"
+import { addUserInDb } from "../../logic/addUserInDb"
 
 function GeneratedAnswersStudent() {
   const { data, error, readDataInDb } = useReadDataInDb("questonaries")
@@ -24,6 +25,12 @@ function GeneratedAnswersStudent() {
     }
   }, [data, error])
 
+  const userName = JSON.parse(sessionStorage.getItem("actualUser"))._document
+    .data.value.mapValue.fields.userName.stringValue
+  const userEmail = JSON.parse(sessionStorage.getItem("actualUser"))._document
+    .data.value.mapValue.fields.userEmail.stringValue
+      let count=0
+
   const handleSubmitFinalAnswers = (event) => {
     const finalAnswers = []
     event.preventDefault()
@@ -34,23 +41,39 @@ function GeneratedAnswersStudent() {
 
       const answerUser = arrayInputs.find((inputAnswer) => inputAnswer.checked)
       const answer = answerUser.dataset.answer
-      finalAnswers.push({
-        question: index,
-        answer: answer[answer.length - 1],
-        correctAnswer: data?.docData?.correctAnswers.sort(
+      if (
+        Number(answer[answer.length - 1]) ===
+        data?.docData?.correctAnswers.sort(
           (a, b) => a.numberQuestion - b.numberQuestion
-        )[index],
-      })
+        )[index].correctAnswer
+      ){
+        count++
+      }
+        finalAnswers.push({
+          question: index,
+          answer: answer[answer.length - 1],
+          correctAnswer: data?.docData?.correctAnswers.sort(
+            (a, b) => a.numberQuestion - b.numberQuestion
+          )[index],
+          
+        })
     })
+
+    addUserInDb(
+      { userName, userEmail, countCorrectAnswers: count, finalAnswers },
+      "answersStudent"
+    )
+
     setUserAnswers(finalAnswers)
     setCorrectAnswers(data?.docData?.correctAnswers)
     setTotalAnswers(data?.docData?.answers)
     navigate("/results")
   }
   return (
-    <>
+    <div className='h-full flex justify-center items-center p-5'>
       {!exist ? (
-        <div className='flex  flex-col items-center justify-center'>
+        <div className='flex  flex-col items-center justify-between'>
+          <h2>hola {userName}</h2>
           <form
             onSubmit={handleSubmitQuestionarieCode}
             className='flex flex-col justify-center items-center'
@@ -71,7 +94,14 @@ function GeneratedAnswersStudent() {
           </form>
         </div>
       ) : (
-        <form onSubmit={handleSubmitFinalAnswers}>
+        <form
+          onSubmit={handleSubmitFinalAnswers}
+          className='h-full flex flex-col justify-between items-center gap-5 '
+        >
+          <h2 className='mt-10 font-bold text-3xl text-blue-500'>
+            hola {userName}
+          </h2>
+
           {data?.docData?.answers?.map((element, index) => (
             <article
               key={element.question + index}
@@ -113,7 +143,7 @@ function GeneratedAnswersStudent() {
       {errorInReadData && (
         <p className='text-3xl text-red-600'>{errorInReadData}</p>
       )}
-    </>
+    </div>
   )
 }
 

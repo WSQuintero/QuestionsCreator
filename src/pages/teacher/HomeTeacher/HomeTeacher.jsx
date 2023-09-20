@@ -1,6 +1,7 @@
 import { Questions } from "../../../components/teacher/Questions"
 import { useState } from "react"
 import { FormTeacher } from "../../../components/teacher/FormTeacher"
+import { CheckResults } from "../../../components/teacher/CheckResults"
 
 function HomeTeacher() {
   const [page, setPage] = useState("form")
@@ -9,7 +10,7 @@ function HomeTeacher() {
   const [errorQuestions, setErrorQuestions] = useState(false)
   const [errorAnswers, setErrorAnswers] = useState(false)
   const [confirmMessage, setConfirmMessage] = useState("")
-
+  const [optionSelected,setOptionSelected]=useState("")
   const handleSubmit = (event) => {
     event.preventDefault()
 
@@ -46,23 +47,39 @@ function HomeTeacher() {
   }
   return (
     <>
-      <FormTeacher
-        handleSubmit={handleSubmit}
-        page={page}
-        errorQuestions={errorQuestions}
-        errorAnswers={errorAnswers}
-        confirmMessage={confirmMessage}
-        setConfirmMessage={setConfirmMessage}
-      />
-      <Questions
-        questionCount={questionCount}
-        answersCount={answersCount}
-        page={page}
-        setQuestionCount={setQuestionCount}
-        setPage={setPage}
-        confirmMessage={confirmMessage}
-        setConfirmMessage={setConfirmMessage}
-      />
+      {optionSelected === "" && (
+        <>
+          <button onClick={() => setOptionSelected("newQuestionarie")}>
+            Crear un nuevo questionario
+          </button>
+          <button onClick={() => setOptionSelected("checkResultsStudent")}>
+            validar resuktados estudiantes
+          </button>
+        </>
+      )}
+      {optionSelected === "newQuestionarie" && (
+        <>
+          <FormTeacher
+            handleSubmit={handleSubmit}
+            page={page}
+            errorQuestions={errorQuestions}
+            errorAnswers={errorAnswers}
+            confirmMessage={confirmMessage}
+            setConfirmMessage={setConfirmMessage}
+          />
+          <Questions
+            questionCount={questionCount}
+            answersCount={answersCount}
+            page={page}
+            setQuestionCount={setQuestionCount}
+            setPage={setPage}
+            confirmMessage={confirmMessage}
+            setConfirmMessage={setConfirmMessage}
+          />
+        </>
+      )}
+      {optionSelected === "checkResultsStudent" &&
+      <CheckResults/>}
     </>
   )
 }
