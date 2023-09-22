@@ -3,6 +3,7 @@ import { addUserInDb } from "../../logic/addUserInDb"
 import { useNavigate } from "react-router"
 import { useReadAllDataInDb } from "../../customHooks/useReadAllDataInDb"
 import { useAddUserAuthentication } from "../../customHooks/useAddUserAuthentication"
+import "./SignUp.css"
 
 function SignUp() {
   const { data, readDataInDb } = useReadAllDataInDb("users")
@@ -87,59 +88,61 @@ function SignUp() {
   }, [user, isCreatedUser])
 
   return (
-    <>
-      <div>
-        <form className='flex flex-col ' onSubmit={handleRegisterForm}>
-          <label htmlFor='userName'>Nombre</label>
-          <input
-            type='text'
-            id='userName'
-            name='userName'
-            className='border border-gray-400'
-          />
-          <label htmlFor='userEmail'>Usuario</label>
-          <input
-            type='email'
-            id='userEmail'
-            name='userEmail'
-            className='border border-gray-400'
-            required
-          />
-          <label htmlFor='password'>password</label>
-          <input
-            type='password'
-            id='password'
-            name='password'
-            className='border border-gray-400'
-            required
-          />
-          <label htmlFor='repeatPassword'>Repeat password</label>
-          <input
-            type='password'
-            id='repeatPassword'
-            name='repeatPassword'
-            className='border border-gray-400'
-            required
-          />
-          <label htmlFor='repeatPassword'>Institución</label>
-          <input
-            type='text'
-            id='school'
-            name='school'
-            className='border border-gray-400'
-            required
-          />
-          <button className='border border-gray-400 rounded-xl mt-5'>
-            Enviar
-          </button>
-          <div className='flex w-full justify-between mt-5'>
-            <label htmlFor='teacher'>Profesor</label>
-            <input type='radio' name='typeUser' id='teacher' required />
-            <label htmlFor='student'>Estudiante</label>
-            <input type='radio' name='typeUser' id='student' required />
-          </div>
-        </form>
-      </div>
+    <div className='flex w-4/5 border border-gray-300 h-[80vh] rounded-xl'>
+      <div className='w-2/4 flex flex-col justify-center items-center background-img'/>
+      <form
+        className='w-2/4 flex flex-col justify-center items-start p-10'
+        onSubmit={handleRegisterForm}
+      >
+        <label htmlFor='userName'>Nombre</label>
+        <input
+          type='text'
+          id='userName'
+          name='userName'
+          className='border border-gray-400'
+        />
+        <label htmlFor='userEmail'>Usuario</label>
+        <input
+          type='email'
+          id='userEmail'
+          name='userEmail'
+          className='border border-gray-400'
+          required
+        />
+        <label htmlFor='password'>password</label>
+        <input
+          type='password'
+          id='password'
+          name='password'
+          className='border border-gray-400'
+          required
+        />
+        <label htmlFor='repeatPassword'>Repeat password</label>
+        <input
+          type='password'
+          id='repeatPassword'
+          name='repeatPassword'
+          className='border border-gray-400'
+          required
+        />
+        <label htmlFor='repeatPassword'>Institución</label>
+        <input
+          type='text'
+          id='school'
+          name='school'
+          className='border border-gray-400'
+          required
+        />
+        <button className='border border-gray-400 rounded-xl mt-5'>
+          Enviar
+        </button>
+        <div className='flex w-full justify-between mt-5'>
+          <label htmlFor='teacher'>Profesor</label>
+          <input type='radio' name='typeUser' id='teacher' required />
+          <label htmlFor='student'>Estudiante</label>
+          <input type='radio' name='typeUser' id='student' required />
+        </div>
+      </form>
       {messageAdd !== "" && (
         <p className='text-3xl text-green-600 font-medium'>
           Usuario creado exitosamente
@@ -150,7 +153,7 @@ function SignUp() {
           {errorMessage}{" "}
         </p>
       )}
-    </>
+    </div>
   )
 }
 

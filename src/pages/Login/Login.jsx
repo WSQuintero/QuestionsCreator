@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router"
 import { useLoginUserAuthentication } from "../../customHooks/useLoginUserAuthentication"
+import "./Login.css"
 
 function Login() {
   const { loginUserAuth, errorAutehenticationLogin } =
@@ -16,8 +17,12 @@ function Login() {
 
   return (
     <>
-      <div>
-        <form className='flex flex-col' onSubmit={handleSubmitLogin}>
+      <div className='flex w-4/5 border border-gray-300 h-[80vh] rounded-xl'>
+        <div className='w-2/4 flex flex-col justify-center items-center background-img'/>
+        <form
+          className='flex flex-col w-2/4 justify-center p-5'
+          onSubmit={handleSubmitLogin}
+        >
           <label htmlFor='inputUser'>Usuario</label>
           <input
             type='email'
