@@ -10,13 +10,15 @@ function GeneratedAnswersStudent() {
   const [exist, setExist] = useState(false)
   const inputQuestionarieCode = useRef(null)
   const finalAnswer = useRef()
-  const { setUserAnswers, setCorrectAnswers, setTotalAnswers } =
-    useContext(Context)
   const navigate = useNavigate()
+
+  const { setUserAnswers, setCorrectAnswers, setTotalAnswers } = useContext(Context)
+  
   const handleSubmitQuestionarieCode = (event) => {
     event.preventDefault()
     readDataInDb(inputQuestionarieCode.current.value)
   }
+  
   useEffect(() => {
     if (data?.docData) setExist(true)
     if (error) {
@@ -70,16 +72,21 @@ function GeneratedAnswersStudent() {
     navigate("/results")
   }
   return (
-    <div className='h-full flex justify-center items-center p-5'>
+    <div className='min-h-[100vh] flex justify-center items-center p-5 flex-col gap-10 w-full'>
+      <h2 className='absolute top-20 text-3xl text-green-950 font-bold text-center'>
+        {userName}
+      </h2>
       {!exist ? (
-        <div className='flex  flex-col items-center justify-between'>
-          <h2>hola {userName}</h2>
+        <div className='flex  flex-col items-center justify-center  '>
           <form
             onSubmit={handleSubmitQuestionarieCode}
-            className='flex flex-col justify-center items-center'
+            className='flex  justify-center items-center gap-10 bg-green-800 p-10 rounded-xl'
           >
-            <div className='flex flex-col justify-center items-center'>
-              <label htmlFor='inputQuestionarieCode'>
+            <div className='flex  justify-center items-center gap-10 '>
+              <label
+                htmlFor='inputQuestionarieCode'
+                className='text-2xl font-semibold text-green-100'
+              >
                 Por favor ingresa tu código de cuestionario:{" "}
               </label>
               <input
@@ -88,9 +95,10 @@ function GeneratedAnswersStudent() {
                 ref={inputQuestionarieCode}
                 id='inputQuestionarieCode'
                 name='inputQuestionarieCode'
+                placeholder='hIQyyVYbwbrKyzbpCkV0'
               />
             </div>
-            <button>enviar</button>
+            <button className="bg-green-200 w-[100px] p-5 rounded-2xl text-xl font-semibold hover:bg-green-300 hover">Enviar</button>
           </form>
         </div>
       ) : (
@@ -98,10 +106,6 @@ function GeneratedAnswersStudent() {
           onSubmit={handleSubmitFinalAnswers}
           className='h-full flex flex-col justify-between items-center gap-5 '
         >
-          <h2 className='mt-10 font-bold text-3xl text-blue-500'>
-            hola {userName}
-          </h2>
-
           {data?.docData?.answers?.map((element, index) => (
             <article
               key={element.question + index}

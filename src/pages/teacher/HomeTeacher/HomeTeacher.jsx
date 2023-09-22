@@ -10,7 +10,7 @@ function HomeTeacher() {
   const [errorQuestions, setErrorQuestions] = useState(false)
   const [errorAnswers, setErrorAnswers] = useState(false)
   const [confirmMessage, setConfirmMessage] = useState("")
-  const [optionSelected,setOptionSelected]=useState("")
+  const [optionSelected, setOptionSelected] = useState("")
   const handleSubmit = (event) => {
     event.preventDefault()
 
@@ -48,14 +48,20 @@ function HomeTeacher() {
   return (
     <>
       {optionSelected === "" && (
-        <>
-          <button onClick={() => setOptionSelected("newQuestionarie")}>
+        <div className='border border-gray-400 flex flex-col p-10 rounded-xl w-2/4 h-[200px] items-center justify-center gap-5'>
+          <button
+            onClick={() => setOptionSelected("newQuestionarie")}
+            className='border border-blue-300 p-5 rounded-lg bg-blue-200 font-bold text-blue-900 w-[200px] hover:bg-blue-100'
+          >
             Crear un nuevo questionario
           </button>
-          <button onClick={() => setOptionSelected("checkResultsStudent")}>
-            validar resuktados estudiantes
+          <button
+            onClick={() => setOptionSelected("checkResultsStudent")}
+            className='border border-red-300 p-5 rounded-lg bg-red-200 font-bold text-red-900 w-[200px] hover:bg-red-100'
+          >
+            validar resultados estudiantes
           </button>
-        </>
+        </div>
       )}
       {optionSelected === "newQuestionarie" && (
         <>

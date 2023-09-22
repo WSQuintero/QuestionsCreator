@@ -2,7 +2,7 @@ import { GeneratedAnswersStudent } from '../../../components/student/GeneratedAn
 
 function HomeStudent() {
   return (
-    <div><GeneratedAnswersStudent/></div>
+    <><GeneratedAnswersStudent/></>
   )
 }
 

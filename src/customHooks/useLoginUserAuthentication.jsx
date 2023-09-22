@@ -49,13 +49,17 @@ function useLoginUserAuthentication() {
       .catch((error) => {
         const errorCode = error.code
         const errorMessage = error.message
-
         if (errorCode === "auth/user-not-found") {
           setErrorAutehenticationLogin(`EL usuario no se encuentra registrado`)
+          setTimeout(() => setErrorAutehenticationLogin(""), 2000)
+
         }
         if (errorMessage.includes("wrong password")) {
           setErrorAutehenticationLogin(`La contraseña es incorrecta`)
+          setTimeout(() => setErrorAutehenticationLogin(""), 2000)
+
         }
+
       })
   }
 
