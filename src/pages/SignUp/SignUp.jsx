@@ -89,9 +89,9 @@ function SignUp() {
 
   return (
     <div className='flex w-4/5 border border-gray-300 h-[80vh] rounded-xl'>
-      <div className='w-2/4 flex flex-col justify-center items-center background-img'/>
+      <div className='w-2/4 sm:flex flex-col justify-center items-center background-img hidden' />
       <form
-        className='w-2/4 flex flex-col justify-center items-start p-10'
+        className='w-full sm:w-2/4 flex flex-col justify-center items-start p-10'
         onSubmit={handleRegisterForm}
       >
         <label htmlFor='userName'>Nombre</label>
@@ -99,14 +99,14 @@ function SignUp() {
           type='text'
           id='userName'
           name='userName'
-          className='border border-gray-400'
+          className='border border-gray-400 w-full'
         />
         <label htmlFor='userEmail'>Usuario</label>
         <input
           type='email'
           id='userEmail'
           name='userEmail'
-          className='border border-gray-400'
+          className='border border-gray-400 w-full'
           required
         />
         <label htmlFor='password'>password</label>
@@ -114,7 +114,7 @@ function SignUp() {
           type='password'
           id='password'
           name='password'
-          className='border border-gray-400'
+          className='border border-gray-400 w-full'
           required
         />
         <label htmlFor='repeatPassword'>Repeat password</label>
@@ -122,7 +122,7 @@ function SignUp() {
           type='password'
           id='repeatPassword'
           name='repeatPassword'
-          className='border border-gray-400'
+          className='border border-gray-400 w-full'
           required
         />
         <label htmlFor='repeatPassword'>Institución</label>
@@ -130,16 +130,20 @@ function SignUp() {
           type='text'
           id='school'
           name='school'
-          className='border border-gray-400'
+          className='border border-gray-400 w-full'
           required
         />
-        <button className='border border-gray-400 rounded-xl mt-5'>
+        <button className='border border-gray-400 rounded-full w-[150px] m-auto mt-5 mb-0 h-[30px] hover:bg-green-500 hover:text-white font-medium'>
           Enviar
         </button>
-        <div className='flex w-full justify-between mt-5'>
-          <label htmlFor='teacher'>Profesor</label>
+        <div className='flex w-2/4 m-auto mb-0 justify-between mt-10 '>
+          <label htmlFor='teacher' className='font-bold'>
+            Profesor
+          </label>
           <input type='radio' name='typeUser' id='teacher' required />
-          <label htmlFor='student'>Estudiante</label>
+          <label htmlFor='student' className='font-bold'>
+            Estudiante
+          </label>
           <input type='radio' name='typeUser' id='student' required />
         </div>
       </form>
