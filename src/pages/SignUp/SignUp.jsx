@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react"
-import { addUserInDb } from "../../logic/addUserInDb"
-import { useNavigate } from "react-router"
-import { useReadAllDataInDb } from "../../customHooks/useReadAllDataInDb"
-import { useAddUserAuthentication } from "../../customHooks/useAddUserAuthentication"
-import "./SignUp.css"
+import { useEffect, useState } from 'react'
+import { addUserInDb } from '../../logic/addUserInDb'
+import { useNavigate } from 'react-router'
+import { useReadAllDataInDb } from '../../customHooks/useReadAllDataInDb'
+import { useAddUserAuthentication } from '../../customHooks/useAddUserAuthentication'
+import './SignUp.css'
 
 function SignUp() {
-  const { data, readDataInDb } = useReadAllDataInDb("users")
-  const [messageAdd, setMessageAdd] = useState("")
-  const [errorMessage, setErrorMessage] = useState("")
+  const { data, readDataInDb } = useReadAllDataInDb('users')
+  const [messageAdd, setMessageAdd] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
   const [user, setUser] = useState(null)
   const [userWithPass, setUserWithPass] = useState({})
   const { isCreatedUser, AddUserAuth } = useAddUserAuthentication()
@@ -21,18 +21,18 @@ function SignUp() {
       userName: event.target.userName.value,
       userEmail: event.target.userEmail.value,
       typeUser: inputTypeUser[0].checked
-        ? "teacher"
+        ? 'teacher'
         : inputTypeUser[1].checked
-        ? "student"
+        ? 'student'
         : false,
-      userSchool: event.target.school.value.toLowerCase(),
+      userSchool: event.target.school.value.toLowerCase()
     }
     setUser(newUser)
 
     const pass = {
       userEmail: event.target.userEmail.value,
       password: event.target.password.value,
-      repeatPassword: event.target.repeatPassword.value,
+      repeatPassword: event.target.repeatPassword.value
     }
     setUserWithPass(pass)
   }
@@ -51,92 +51,106 @@ function SignUp() {
           )
 
           const sendUser = async (newUser) => {
-            const resultAdd = await addUserInDb(newUser, "users")
+            const resultAdd = await addUserInDb(newUser, 'users')
 
             setMessageAdd(resultAdd)
             setTimeout(() => {
-              setMessageAdd("")
-              navigate("/login")
+              setMessageAdd('')
+              navigate('/login')
             }, 2000)
           }
 
           if (!validateUsers) {
             AddUserAuth({
               email: userWithPass.userEmail,
-              password: userWithPass.password,
+              password: userWithPass.password
             })
             if (isCreatedUser) sendUser(user)
           } else {
-            setErrorMessage("El correo ya se encuentra registrado")
+            setErrorMessage('El correo ya se encuentra registrado')
             setTimeout(() => {
-              setErrorMessage("")
+              setErrorMessage('')
             }, 2000)
           }
         } else {
-          setErrorMessage("Las dos contraseñas deben coincidir")
+          setErrorMessage('Las dos contraseñas deben coincidir')
           setTimeout(() => {
-            setErrorMessage("")
+            setErrorMessage('')
           }, 2000)
         }
       } else {
-        setErrorMessage("La contraseña debe contener mínimo 6 caracteres")
+        setErrorMessage('La contraseña debe contener mínimo 6 caracteres')
         setTimeout(() => {
-          setErrorMessage("")
+          setErrorMessage('')
         }, 2000)
       }
     }
   }, [user, isCreatedUser])
 
   return (
-    <div className='flex w-4/5 border border-gray-300 h-[80vh] rounded-xl'>
-      <div className='w-2/4 sm:flex flex-col justify-center items-center background-img hidden' />
+    <div className='flex  justify-center items-center w-4/5 bg-deep-magenta h-[80vh] rounded-3xl border-2 overflow-hidden'>
+      <figure className='w-2/5 h-full flex justify-center items-center  bg-pale-yellow'>
+        <img
+          src='/klipartz.png'
+          alt='loginImg'
+          className=' object-cover object-right h-full'
+        />
+      </figure>{' '}
+      <div className='flex flex-col  w-3/5 justify-center p-20 gap-3 bg-pastel-yellow h-full '>
+
       <form
-        className='w-full sm:w-2/4 flex flex-col justify-center items-start p-10'
-        onSubmit={handleRegisterForm}
-      >
+          className='flex flex-col  w-full justify-center  gap-3 bg-pastel-yellow h-full'
+          onSubmit={handleRegisterForm}>
         <label htmlFor='userName'>Nombre</label>
         <input
           type='text'
           id='userName'
           name='userName'
-          className='border border-gray-400 w-full'
+          className='px-5'
         />
         <label htmlFor='userEmail'>Usuario</label>
         <input
           type='email'
           id='userEmail'
           name='userEmail'
-          className='border border-gray-400 w-full'
           required
+          className='px-5'
+
         />
         <label htmlFor='password'>password</label>
         <input
           type='password'
           id='password'
           name='password'
-          className='border border-gray-400 w-full'
           required
+          className='px-5'
+
         />
         <label htmlFor='repeatPassword'>Repeat password</label>
         <input
           type='password'
           id='repeatPassword'
           name='repeatPassword'
-          className='border border-gray-400 w-full'
           required
+          className='px-5'
+
         />
         <label htmlFor='repeatPassword'>Institución</label>
         <input
           type='text'
           id='school'
           name='school'
-          className='border border-gray-400 w-full'
           required
+          className='px-5'
+
         />
-        <button className='border border-gray-400 rounded-full w-[150px] m-auto mt-5 mb-0 h-[30px] hover:bg-green-500 hover:text-white font-medium'>
+        <div className='w-full flex justify-center p-5'>
+
+        <button className='text-3xl font-bold' >
           Enviar
         </button>
-        <div className='flex w-2/4 m-auto mb-0 justify-between mt-10 '>
+        </div>
+        <div className='flex w-2/4 m-auto mb-0 justify-between mt-10 items-center border border-dark-maroon p-5 rounded-xl '>
           <label htmlFor='teacher' className='font-bold'>
             Profesor
           </label>
@@ -147,16 +161,17 @@ function SignUp() {
           <input type='radio' name='typeUser' id='student' required />
         </div>
       </form>
-      {messageAdd !== "" && (
-        <p className='text-3xl text-green-600 font-medium'>
+      {messageAdd !== '' && (
+        <p className='text-3xl text-green-600 font-medium m-auto'>
           Usuario creado exitosamente
         </p>
       )}
-      {errorMessage !== "" && (
-        <p className='text-3xl text-red-600 font-medium mt-5'>
-          {errorMessage}{" "}
+      {errorMessage !== '' && (
+        <p className='text-3xl text-red-600 font-medium mt-5 m-auto'>
+          {errorMessage}{' '}
         </p>
       )}
+      </div>
     </div>
   )
 }

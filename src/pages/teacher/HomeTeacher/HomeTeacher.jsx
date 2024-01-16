@@ -48,16 +48,16 @@ function HomeTeacher() {
   return (
     <>
       {optionSelected === "" && (
-        <div className='border border-gray-400 flex flex-col p-10 rounded-xl w-2/4 h-[200px] items-center justify-center gap-5'>
+        <div className='border bg-pale-yellow flex flex-col  rounded-xl w-full h-[90vh] items-center justify-center '>
           <button
             onClick={() => setOptionSelected("newQuestionarie")}
-            className='border border-blue-300 p-5 rounded-lg bg-blue-200 font-bold text-blue-900 w-[200px] hover:bg-blue-100'
+            className='border bg-pastel-yellow  p-5 rounded-lg  font-bold text-blue-900 text-3xl h-2/4 w-full hover:bg-blue-900 hover:text-pale-yellow'
           >
             Crear un nuevo questionario
           </button>
           <button
             onClick={() => setOptionSelected("checkResultsStudent")}
-            className='border border-red-300 p-5 rounded-lg bg-red-200 font-bold text-red-900 w-[200px] hover:bg-red-100'
+            className='border bg-pastel-yellow  p-5 rounded-lg  font-bold text-dark-maroon text-3xl h-2/4 w-full hover:bg-blue-900 hover:text-pale-yellow'
           >
             validar resultados estudiantes
           </button>

@@ -1,3 +1,15 @@
-.background-img{
-  background-image: url("https://previews.123rf.com/images/marinamandarina/marinamandarina1606/marinamandarina160600026/59214359-de-vuelta-a-la-escuela-texturas-para-fondos-de-escritorio-rellenos-de-fondo-p%C3%A1gina-web.jpg");
+input{
+  @apply h-[40px] rounded-2xl px-5;
+}
+
+label{
+  @apply text-2xl font-bold;
+}
+
+button{
+  @apply w-[300px]  flex justify-center items-center  h-[40px]  p-5 rounded-2xl mt-10  bg-dark-red text-white hover:bg-pale-yellow hover:text-dark-maroon font-bold text-3xl border border-dark-maroon;
+}
+
+form input[type="radio"] {
+  @apply w-[30px]
 }

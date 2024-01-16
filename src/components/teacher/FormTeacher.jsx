@@ -12,7 +12,7 @@ function FormTeacher({
       {page === "form" && (
         <>
           <form
-            className='flex flex-col w-2/4 items-center gap-3 border-4 border-blue-300 p-20 text-blue-500 font-medium text-2xl'
+            className='flex flex-col w-2/4 items-center  border-4 border-blue-300  text-blue-500 font-medium text-5xl'
             onSubmit={handleSubmit}
           >
             <label htmlFor='questions' className='text-green-600'>
