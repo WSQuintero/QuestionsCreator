@@ -11,6 +11,7 @@ function HomeTeacher() {
   const [errorAnswers, setErrorAnswers] = useState(false)
   const [confirmMessage, setConfirmMessage] = useState("")
   const [optionSelected, setOptionSelected] = useState("")
+
   const handleSubmit = (event) => {
     event.preventDefault()
 
@@ -45,19 +46,20 @@ function HomeTeacher() {
       answers.value === "" && setErrorAnswers(true)
     }
   }
+
   return (
     <>
       {optionSelected === "" && (
-        <div className='border bg-pale-yellow flex flex-col  rounded-xl w-full h-[90vh] items-center justify-center '>
+        <div className='border bg-pale-yellow flex flex-col  rounded-xl w-full h-[100vh] items-center justify-center '>
           <button
             onClick={() => setOptionSelected("newQuestionarie")}
-            className='border bg-pastel-yellow  p-5 rounded-lg  font-bold text-blue-900 text-3xl h-2/4 w-full hover:bg-blue-900 hover:text-pale-yellow'
+            className='border bg-pastel-yellow  p-5 rounded-lg  font-bold text-blue-900 text-3xl h-2/4 w-full hover:bg-green-900 hover:text-pale-yellow'
           >
             Crear un nuevo questionario
           </button>
           <button
             onClick={() => setOptionSelected("checkResultsStudent")}
-            className='border bg-pastel-yellow  p-5 rounded-lg  font-bold text-dark-maroon text-3xl h-2/4 w-full hover:bg-blue-900 hover:text-pale-yellow'
+            className='border bg-pastel-yellow  p-5 rounded-lg  font-bold text-green-900 text-3xl h-2/4 w-full hover:bg-blue-900 hover:text-pale-yellow'
           >
             validar resultados estudiantes
           </button>

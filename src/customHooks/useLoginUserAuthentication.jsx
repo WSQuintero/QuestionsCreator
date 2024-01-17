@@ -1,69 +1,53 @@
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
-import { app } from "../firebase/firebase"
-import { useContext, useEffect, useState } from "react"
-import { useNavigate } from "react-router"
-import { useReadAllDataInDb } from "./useReadAllDataInDb"
-import { Context } from "../context/ContextProvider"
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import { app } from '../firebase/firebase'
+import { useContext, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router'
+import { useReadAllDataInDb } from './useReadAllDataInDb'
+import { Context } from '../context/ContextProvider'
+import { navigateUserLoged, updateUserInformation} from '../helpers/functionsLogin'
 
 function useLoginUserAuthentication() {
   const { setTypeUser } = useContext(Context)
-  const { data, readDataInDb } = useReadAllDataInDb("users")
+  const { data, readDataInDb } = useReadAllDataInDb('users')
   const [isLogedUser, setIsLogedUser] = useState(false)
-  const [logedUser, setlogedUser] = useState(null)
-  const navigate = useNavigate()
-  const [errorAutehenticationLogin, setErrorAutehenticationLogin] = useState("")
+  const [logedUser, setLogedUser] = useState(null)
+  const [errorAuthenticationLogin, setErrorAuthenticationLogin] = useState('')
   const auth = getAuth(app)
+  const navigate = useNavigate()
+  const navigateUser = { navigate, setTypeUser, setIsLogedUser, setLogedUser }
+  const templateEmail = (data) =>
+    data._document.data.value.mapValue.fields.userEmail.stringValue
 
   useEffect(() => {
     readDataInDb()
   }, [data])
 
-  const loginUserAuth = ({ email, password }) => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const actualUser = data.find(
-          (dat) =>
-            dat._document.data.value.mapValue.fields.userEmail.stringValue ===
-            email
-        )
-        sessionStorage.setItem(
-          "actualUser",
-          JSON.stringify({ ...actualUser, isLoged: true })
-        )
-        const findedTypeUser =
-          actualUser._document.data.value.mapValue.fields.typeUser.stringValue
+  const loginUserAuth = async ({ email, password }) => {
+    try {
+      const userCredential =
+        await signInWithEmailAndPassword(auth,email,password)
+      const actualUser = data.find((dat) => templateEmail(dat) === email)
 
-        const user = userCredential.user
-        setIsLogedUser(true)
-        setlogedUser(user)
+      updateUserInformation(actualUser)
+      navigateUserLoged({ ...navigateUser, userCredential, actualUser })
 
-        if (findedTypeUser === "teacher") {
-          navigate("/teacher")
-          setTypeUser("teacher")
-        }
-        if (findedTypeUser === "student") {
-          navigate("/student")
-          setTypeUser("student")
-        }
-      })
-      .catch((error) => {
-        const errorCode = error.code
-        const errorMessage = error.message
-        if (errorCode === "auth/user-not-found") {
-          setErrorAutehenticationLogin(`EL usuario no se encuentra registrado`)
-          setTimeout(() => setErrorAutehenticationLogin(""), 2000)
+    } catch (error) {
+      if (error.code === 'auth/user-not-found') {
+        setErrorAuthenticationLogin('El usuario no se encuentra registrado')
+      } else if (error.message.includes('wrong password')) {
+        setErrorAuthenticationLogin('La contraseña es incorrecta')
+      }
 
-        }
-        if (errorMessage.includes("wrong password")) {
-          setErrorAutehenticationLogin(`La contraseña es incorrecta`)
-          setTimeout(() => setErrorAutehenticationLogin(""), 2000)
-
-        }
-
-      })
+      setTimeout(() => setErrorAuthenticationLogin(''), 2000)
+    }
   }
 
-  return { isLogedUser, logedUser, errorAutehenticationLogin, loginUserAuth }
+  return {
+    isLogedUser,
+    logedUser,
+    errorAuthenticationLogin,
+    loginUserAuth
+  }
 }
 
 export { useLoginUserAuthentication }

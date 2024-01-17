@@ -27,11 +27,16 @@ function Questions({
     setAnswers([])
   }
   return (
-    <>
+    <div className="w-full flex justify-around bg-pale-yellow p-10">
+      <div className="flex justify-center items-center w-1/3">
+                <img src="/quest.png" alt="question" className="object-cover w-full" />
+              </div>
       {page === "questions" &&
         (confirmMessage === "" ? (
-          <div className='flex gap-10 flex-col items-center justify-center'>
+          <div className='flex gap-10 flex-col items-center justify-center w-[60%]'>
             {!generatedAnswers ? (
+              <>
+
               <GeneratorAnswers
                 questionCount={questionCount}
                 answersCount={answersCount}
@@ -41,6 +46,7 @@ function Questions({
                 answers={answers}
                 setGeneratedAnswers={setGeneratedAnswers}
               />
+              </>
             ) : (
               <GeneratedAnswers
                 answers={answers}
@@ -73,7 +79,7 @@ function Questions({
             />
           </div>
         ))}
-    </>
+    </div>
   )
 }
 

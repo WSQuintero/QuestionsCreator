@@ -3,7 +3,7 @@ import { useLoginUserAuthentication } from '../../customHooks/useLoginUserAuthen
 import './Login.css'
 
 function Login() {
-  const { loginUserAuth, errorAutehenticationLogin } =
+  const { loginUserAuth, errorAuthenticationLogin } =
     useLoginUserAuthentication()
 
   const navigate = useNavigate()
@@ -17,7 +17,7 @@ function Login() {
 
   return (
     <>
-      <div className='flex  justify-center items-center w-4/5 bg-deep-magenta h-[80vh] rounded-3xl border-2 overflow-hidden'>
+      <div className='flex  justify-center items-center w-4/5 bg-deep-magenta h-[80vh] shadow-xl shadow-dark-maroon/30 rounded-3xl border-2 overflow-hidden'>
         <figure className='w-2/5 h-full flex justify-center items-center  bg-pale-yellow'>
           <img src='/klipartz.png' alt='loginImg'  className=' object-cover object-right h-full'/>
         </figure>
@@ -62,7 +62,7 @@ function Login() {
         </form>
       </div>
       <span className='text-3xl text-red-600 font-bold '>
-        {errorAutehenticationLogin}
+        {errorAuthenticationLogin}
       </span>
     </>
   )
