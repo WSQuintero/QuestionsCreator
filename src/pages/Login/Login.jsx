@@ -3,10 +3,9 @@ import { useLoginUserAuthentication } from '../../customHooks/useLoginUserAuthen
 import './Login.css'
 
 function Login() {
+  const navigate = useNavigate()
   const { loginUserAuth, errorAuthenticationLogin } =
     useLoginUserAuthentication()
-
-  const navigate = useNavigate()
 
   const handleSubmitLogin = (event) => {
     event.preventDefault()
@@ -48,7 +47,6 @@ function Login() {
             Ingresar
           </button>
           <div className='w-full flex justify-end text-2xl'>
-
           <p className=' mt-5'>
             ¿Aun no tienes cuenta?{' '}
             <span
